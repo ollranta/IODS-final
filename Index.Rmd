@@ -1,5 +1,5 @@
 ---
-title: "index.Rmd"
+title: "Index.Rmd"
 output: html_document
 ---
 
