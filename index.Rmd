@@ -1,15 +1,326 @@
 ---
-title: "index.Rmd"
+title: "Olli Rantanen, Final project, olli.a.rantanen@helsinki.fi. 1.3.2017" 
 output: html_document
+code_folding: show
 ---
+8.3 klo 10, lintulahdenkuja 5 nesteen tunnelin keskeltä jari sipilä 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+install.packages(dplyr)
+library(dplyr)
+install.packages("ggplot2")
+library("ggplot2")
+install.packages("FactoMineR")
+library("FactoMineR")
+install.packages(MASS)
+library(MASS)
+install.packages(GGally)
+library("GGally")
+library("corrplot")
+
+# Accessing to Boston dataset is quite easy because it's built-in to MASS package. 
+# The Boston dataset contains 506 observations and 14 columns, 
+
+data("Boston")
+
+dim(Boston)
+
+# So we are focusing on crim variable, But first I want to change the column names since there is not much
+# else to wrangle 
+
+summary(Boston$crim)
+
+#Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+# 0.00632  0.08204  0.25650  3.61400  3.67700 88.98000 
+
+
+
+colnames(Boston)
+colnames(Boston)[1] <- "crime"
+colnames(Boston)[2] <- "zone"
+colnames(Boston)[3] <- "industry"
+colnames(Boston)[4] <- "charles"
+colnames(Boston)[5]<- "noc" 
+colnames(Boston)[6]<- "dwell_rooms"
+colnames(Boston)[7]<- "built_b1940"
+colnames(Boston)[8]<- "distance"
+colnames(Boston)[9]<- "highways"
+colnames(Boston)[10]<- "property_tax"
+colnames(Boston)[11]<- "pupil-teacher"
+colnames(Boston)[12]<- "blacks"
+colnames(Boston)[13]<- "lower"
+colnames(Boston)[14]<- "median"
+
+colnames(Boston)
+
+# Our dataset needs to be scaled if we might need it later. Our basic dataset has a scaled boston but it is in quantiles
+# which we do not need at least now so I need to make my own. 
+# I will however show how its done to avoid confusion. Scaling is done by function (Boston - mean(Boston))/ std(Boston).
+# The data is in matrix class but the lower function will change this. 
+
+my_boston_scaled <- scale(Boston)
+
+my_boston_scaled <- as.data.frame(my_boston_scaled)
+
+summary(my_boston_scaled)
+summary(Boston)
+
+colnames(my_boston_scaled)
+colnames(my_boston_scaled)[1]<-  "crime"
+colnames(my_boston_scaled)[2]<-  "zone"
+colnames(my_boston_scaled)[3]<-  "industry"
+colnames(my_boston_scaled)[4]<-  "charles"
+colnames(my_boston_scaled)[5]<-  "noc" 
+colnames(my_boston_scaled)[6]<-  "dwell_rooms"
+colnames(my_boston_scaled)[7]<-  "built_b1940"
+colnames(my_boston_scaled)[8]<-  "distance"
+colnames(my_boston_scaled)[9]<-  "highways"
+colnames(my_boston_scaled)[10]<- "property_tax"
+colnames(my_boston_scaled)[11]<- "pupil-teacher"
+colnames(my_boston_scaled)[12]<- "blacks"
+colnames(my_boston_scaled)[13]<- "lower"
+colnames(my_boston_scaled)[14]<- "median"
+
+
+# There does not seem to be more wrangling done for this data set so let's move on to the analysis.
+# MILT NAYTTAA
+
+correlation_plot <- cor(Boston)
+
+
+# print the correlation matrix
+correlation_plot <-cor(Boston) %>% round(digits=2)
+
+# visualize the correlation matrix
+corrplot(correlation_plot,  method="pie", type = "upper", cl.pos = "b", tl.pos = "d", tl.cex = 0.6)
+
+library("knitr")
+setwd("\\\\atkk/home/o/ollranta/Documents/tilastoi/Opendatasciense/IODS-final-master")
+getwd()
+
+# Some remarks about the project
+
+Data from <https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html>
+
+Data Wrangling<https://github.com/ollranta/IODS-final/blob/master/boston_datawrangle.R>
+
+First I was going to choose a new topic for the project but I had major problems deciding what to study and why. Since there is no way to tell that I would even find anything interesting about the dataset, I thought that it would be more interesting to find something new about the Boston dataset. I noticed that the data wrangling will be kind of short but I did not figure out any more ways that could help handling the data. 
+
+Anyway our dataset is oldie but goldie as a dataset since we used it in chapter 4. The source for it are Harrison, D. and Rubinfeld, D.L. (1978) Hedonic prices and the demand for clean air. and J. Environ. Economics and Management 5, 81-102.Belsley D.A., Kuh, E. and Welsch, R.E. (1980) Regression Diagnostics. Identifying Influential Data and Sources of Collinearity. New York: Wiley. As you can see, the data is almost 40 years old and things may have changed quite a bit. The dataset consists of housing values in Boston which are indicated by 14 variables. Totally there are 506 observations of data. I did not have to do lots of data wrangling, since the data was allready in a pretty good form. However I changed the column names and also made a new dataset which has the scaled variables also. TULEEKO TARPEESEEN?
+
+My core research question is how does crime variable behave on a linear regression analysis. For example my hypothesis is that places which have high crime will also lower median house values. 
+
+I will use different variables in linear regression analysis to see how crime affect different things. 
+I will do linear regression for the crime variable which is recommended by the instructions. I will also do multiple regression analysis with low and high correlation varibales to crime. have time I will use different variables in linear regression analysis to see how crime affect different things. 
+The R does linear model y ~ x meaning y is target variable (grades) and x is the explanatory variable which is crime variable. 
+
+So yeah let's have a look of our variables. 
+
+
+
+```
+crime = per capita crime rate by town.
+
+zone = proportion of residential land zoned for lots over 25,000 sq.ft.
+
+industry =  proportion of non-retail business acres per town
+
+charles = Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).
+
+noc = nitrogen oxides concentration (parts per 10 million).
+
+dwell_rooms = average number of rooms per dwelling
+
+built_b1940 = proportion of owner-occupied units built prior to 1940.
+
+distance =weighted mean of distances to five Boston employment centres.
+    
+highways = index of accessibility to radial highways.
+
+property_tax = full-value property-tax rate per \$10,000.
+
+pupil-teacher =  pupil-teacher ratio by town.
+
+blacks = 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town.
+
+lower = lower status of the population (percent).
+
+median = median value of owner-occupied homes in \$1000
+```
+And here is the summary of the data
+
+```{r, echo=F}
+library(MASS)
+summary(Boston)
 ```
 
-## R Markdown
+KORRELAATIOMATRIISI
+Let's use a correlation matrix to interpret the variables and their relationships.
+```
+correlation_plot <-cor(Boston) %>% round(digits=2)
+corrplot(correlation_plot,  method="pie", type = "upper", cl.pos = "b", tl.pos = "d", tl.cex = 0.6)
+```
+![](corrplot1.png)
+
+As we can see here there are positive correlation with crime variable such as accessibility to highways and property tax rate. Negative correlation between crime variable can be seen with median value of houses, black population and distance to Boston's employment centers. 
+
+Then we can draw some scatterplots of the scaled variables. The scatterplot shows how these variables have distributed. 
+```
+pairs(~crime+zone+industry+charles +noc + dwell_rooms + built_b1940,data=Boston,
+      main="Scatterplot of Boston variables")
+```
+![](scatter1.png)
+```
+pairs(~distance+highways+property_tax+pupil_teacher +blacks + lower + median,data=Boston,
+      main="Scatterplot of Boston variables")
+```
+![](scatter2.png)
+
+TAHAN LISAA TEKSTIa
+Visually clear and interesting explorations of the variables of interest in the data, from the point of view of your research question. Include interpretations of the distributions and relationships of the variables. Use captions to draw the reader's focus on the interesting parts of your tables and graphics.
+
+Okay now I think we can move on to do the linear regression analysis. Linear regression analysis is used to find out if two (or more) variable's connection is statistically significant. This is done by visualizing the coeffecients between variables. We can interpret results from the produced chart. If the line is going up, the coefficients are positive which means the variables are linearly related. If it's going down they are negative. 
+Crime variable is target (dependent) variable on our analysis since we are trying to find out which variables linearly relate with crime variable. I use logaritmic scale for the crime variable since there are so many low crime zones which will affect the graph some variables which vary alot which makes it easier for reading.
+
+```
+lm(formula = crime ~ ., data = Boston)
+```
+![](coeffi.jpg)
+
+Okay so now we can look the linear models. I picked the explanatory variables which have high negative or positive correlation with the crime variable. So I'll use "highways", "property_tax", "median", "blacks", "distance". The grapghs look pretty funky but that is just because there much more "non-crime" neighbourhood which make it look like that. Anyhow the linear models are right. The following models can described like this: If there line on the graph goes down there is evidence for non-linearity in the relationship between the variables. If it goes up, it means there is linearity between the relationship of the variables. The coefficent tables show us how much does the explanatory variable explain the variation of crime. For example distance is estimated to effect crime variable by -1.5. The p-values are so low because there are so many observations of data. 
+
+```
+qplot((Boston$crime), (Boston$distance), data = Boston) + geom_smooth(method = "lm")
+model1 <- lm(Boston$crime ~ Boston$distance, data = Boston)
+summary(model1)
+```
+![](dis.png)
+
+![](dis.jpg)
+```
+qplot((Boston$crime), (Boston$highways), data = Boston) + geom_smooth(method = "lm")
+model2 <- lm(Boston$crime ~ Boston$highways, data = Boston)
+summary(model2)
+```
+
+![](high.png)
+
+![](high.jpg)
+
+```
+qplot((Boston$crime), (Boston$property_tax), data = Boston) + geom_smooth(method = "lm")
+model3 <- lm(Boston$crime ~ Boston$property_tax, data = Boston)
+summary(model3)
+```
+
+
+![](tax.png)
+
+![](tax.jpg)
+
+
+```
+qplot((Boston$crime), (Boston$median), data = Boston) + geom_smooth(method = "lm")
+model4 <- lm(Boston$crime ~ Boston$median, data = Boston)
+summary(model4)
+```
+
+![](medi.png)
+
+![](medi.jpg)
+
+```
+qplot((Boston$crime), (Boston$blacks), data = Boston) + geom_smooth(method = "lm")
+model5 <- lm(Boston$crime ~ Boston$blacks, data = Boston)
+summary(model5)
+```
+
+
+![](bla.png)
+
+
+
+![](bla.jpg)
+
+
+
+
+There is some evidence for non-linearity in the relationship between lstat and medv jotka menee alas
+
+
+Multiple regression analysis for both negative and positive correlations.
+
+```
+my_model1 <- lm(Boston$crime ~ Boston$distance + Boston$blacks + Boston$median, data = Boston)
+
+summary(my_model1)
+```
+![](multi1.jpg)
+
+2 × 3 grid panels which means 3 plots on 2 levels.
+
+```
+par(mfrow = c(2,2))
+plot(my_model1, which = c(1,2,5))
+```
+![](my_model_residuals.png)
+
+```
+my_model2 <-lm(Boston$crime  ~ Boston$property_tax + Boston$highways, data = Boston)
+
+summary(my_model2)
+```
+![](multi2.jpg)
+
+
+
+2 × 3 grid panels which means 3 plots on 2 levels.
+```
+par(mfrow = c(2,2))
+plot(my_model2, which = c(1,2,5))
+```
+![](my_model2_residuals.png)
+
+
+
+Application for Lm
+Predictions and forecasting and quantifyig the relationship between y and x
+
+Best model is found by minimizing the prediction errors that the model would make
+residuals mean prediction errors
+Model is found by minimizing the sum of squared residuals
+
+
+
+
+Tasta jatkuu, tee ne validiations.
+https://campus.datacamp.com/courses/helsinki-open-data-science/regression-and-model-validation?ex=12
+
+# Brief description of the "research question" you are exploring, possibly including your hypothesis (max 2 points)
+
+A link to your data wrangling script. See the general instructions. (max 5/10 points)
+
+Description of your data and its variables. Where is the data from, what does it relate to, what do the variables represent, what has been done to the data before analysis? (max 2 points)
+
+Visually clear and interesting explorations of the variables of interest in the data, from the point of view of your research question. Include interpretations of the distributions and relationships of the variables. Use captions to draw the reader's focus on the interesting parts of your tables and graphics. (max 8 points)
+
+Brief description of the method you are using in your own words (max 3 points)
+
+Presentation of the results of your analysis including visualizations and summaries and a thorough interpretation of the results including a validation analysis of the method. (max 16 points)
+*cv.glm()* or even *predict()*  
+Conclusions and discussion (max 2 points)
+
+An 'abstract' at the beginning of the page with a summary of your analysis (max 2 points)
+
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+```{r}
+dim(iris)
+```
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
