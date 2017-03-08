@@ -10,7 +10,7 @@ knitr::opts_chunk$set(error = TRUE)
 ```
 
 # Abstract: 
-I will focus on Boston dataset which is a built-in dataset in R-studio. The dataset consists of housing values of Boston and there are totally 14 variables and 506 observations. I will do linear regression analysis and multiple regression analysis. I will focus on 5 core variables which share the most positive/negative correlations with the crime variable. I will also show core summaries of the dataset, correlation matrix, scatter plots, residual plots and regression plots. Also there are some interpretation of the produced results. Our hypothesis was true, when median house value is lower on a neighbourhood the crime rate is higher and vice versa. This can be proved by looking our prediction model and linear regression chart.
+I will focus on Boston dataset which is a built-in dataset in R-studio. The dataset consists of housing values of Boston and there are totally 14 variables and 506 observations. I wrangled the data only a little bit since it was basically in a perfect form allready. I thought I would need scaled variables but they did not come handy on any point. I will do linear regression analysis and multiple regression analysis. I will focus on 5 core variables which share the most positive/negative correlations with the crime variable. I will also show core summaries of the dataset, correlation matrix, scatter plots, residual plots and regression plots. Also there are some interpretation of the produced results. Our hypothesis was true, when median house value is lower on a neighbourhood the crime rate is higher and vice versa. This can be proved by looking our prediction model and linear regression chart.
 
 
 # Some remarks about the project
@@ -22,7 +22,7 @@ Data Wrangling<https://github.com/ollranta/IODS-final/blob/master/boston_datawra
 
 First I was going to choose a new topic for the project but I had major problems deciding what to study and why. Since there is no way to tell that I would even find anything interesting about the dataset, I thought that it would be more interesting to find something new about the Boston dataset. I noticed that the data wrangling will be kind of short but I did not figure out any more ways that could help handling the data. 
 
-Anyway our dataset is oldie but goldie as a dataset since we used it in chapter 4. The source for it are Harrison, D. and Rubinfeld, D.L. (1978) Hedonic prices and the demand for clean air. and J. Environ. Economics and Management 5, 81-102.Belsley D.A., Kuh, E. and Welsch, R.E. (1980) Regression Diagnostics. Identifying Influential Data and Sources of Collinearity. New York: Wiley. As you can see, the data is almost 40 years old and things may have changed quite a bit. The dataset consists of housing values in Boston which are indicated by 14 variables. Totally there are 506 observations of data. I did not have to do lots of data wrangling, since the data was allready in a pretty good form. However I changed the column names and also made a new dataset which has the scaled variables also. TULEEKO TARPEESEEN?
+Anyway our dataset is oldie but goldie as a dataset since we used it in chapter 4. The source for it are Harrison, D. and Rubinfeld, D.L. (1978) Hedonic prices and the demand for clean air. and J. Environ. Economics and Management 5, 81-102.Belsley D.A., Kuh, E. and Welsch, R.E. (1980) Regression Diagnostics. Identifying Influential Data and Sources of Collinearity. New York: Wiley. As you can see, the data is almost 40 years old and things may have changed quite a bit. The dataset consists of housing values in Boston which are indicated by 14 variables. Totally there are 506 observations of data. I did not have to do lots of data wrangling, since the data was allready in a pretty good form. However I changed the column names and also made a new dataset which has the scaled variables also. 
 
 My core research question is how does crime variable behave on a linear regression analysis. For example my hypothesis is that places which have high crime will also lower median house values. 
 
@@ -35,6 +35,9 @@ So yeah let's have a look of our variables.
 
 
 ```
+colnames(Boston)
+
+
 crime = per capita crime rate by town.
 
 zone = proportion of residential land zoned for lots over 25,000 sq.ft.
@@ -208,7 +211,7 @@ plot(my_model2, which = c(1,2,5))
 ```
 ![](my_model2_residuals.png)
 
-# Prediction
+# Prediction and validation
 
 Let's make a prediction of the median house value and amount of crime. Since we made our linear model we can use it to try new values for the such as: if house median value is 10 how much is the crime and so on. 
 
@@ -223,36 +226,8 @@ predict(prediction, newdata  = new_data)
 ```
 Based on the prediction our new observations number 507 would have per capita crime rate of 3.44 if its median household value is 23 000 dollars and the observation number 508 would have 6.34 crime rate per capita with median house value being 15 000 dollars. This shows how the prediction works.
 
-TULKINTA
-
-Application for Lm
-Predictions and forecasting and quantifyig the relationship between y and x
-
-Best model is found by minimizing the prediction errors that the model would make
-residuals mean prediction errors
-Model is found by minimizing the sum of squared residuals
-
 
 # Conclusions and discussion
-I could have maybe scale the crime variable on a different way but it showed the right things so maybe that was not necessary. I did not find anything spectacular with my analysis but my hypothesis about the median house value and the amount of crime is right. Maybe this is a non-brainer but at least now I have a linear graph showing the linearity. 
+I could have maybe scale the crime variable on a different way but it showed the right things so maybe that was not necessary. I did not find any new ways to show the results of the multiple regression analysis since it is pretty straight forward to interpret from the summary. But I did include the residual plots and the explanations for them.
+I did not find anything spectacular with my analysis but my hypothesis about the median house value and the amount of crime is right. Maybe this is a non-brainer but at least now I have a linear graph showing the linearity. 
 
-
-
-Tasta jatkuu, tee ne validiations.
-https://campus.datacamp.com/courses/helsinki-open-data-science/regression-and-model-validation?ex=12
-
-# Brief description of the "research question" you are exploring, possibly including your hypothesis (max 2 points)
-
-A link to your data wrangling script. See the general instructions. (max 5/10 points)
-
-Description of your data and its variables. Where is the data from, what does it relate to, what do the variables represent, what has been done to the data before analysis? (max 2 points)
-
-Visually clear and interesting explorations of the variables of interest in the data, from the point of view of your research question. Include interpretations of the distributions and relationships of the variables. Use captions to draw the reader's focus on the interesting parts of your tables and graphics. (max 8 points)
-
-Brief description of the method you are using in your own words (max 3 points)
-
-Presentation of the results of your analysis including visualizations and summaries and a thorough interpretation of the results including a validation analysis of the method. (max 16 points)
-*cv.glm()* or even *predict()*  
-Conclusions and discussion (max 2 points)
-
-An 'abstract' at the beginning of the page with a summary of your analysis (max 2 points)
