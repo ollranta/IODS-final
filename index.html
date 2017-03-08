@@ -120,62 +120,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>install.packages(dplyr) library(dplyr) install.packages(“ggplot2”) library(“ggplot2”) install.packages(“FactoMineR”) library(“FactoMineR”) install.packages(MASS) library(MASS) install.packages(GGally) library(“GGally”) library(“corrplot”)</p>
-<div id="accessing-to-boston-dataset-is-quite-easy-because-its-built-in-to-mass-package." class="section level1">
-<h1>Accessing to Boston dataset is quite easy because it’s built-in to MASS package.</h1>
-</div>
-<div id="the-boston-dataset-contains-506-observations-and-14-columns" class="section level1">
-<h1>The Boston dataset contains 506 observations and 14 columns,</h1>
-<p>data(“Boston”)</p>
-<p>dim(Boston)</p>
-</div>
-<div id="so-we-are-focusing-on-crim-variable-but-first-i-want-to-change-the-column-names-since-there-is-not-much" class="section level1">
-<h1>So we are focusing on crim variable, But first I want to change the column names since there is not much</h1>
-</div>
-<div id="else-to-wrangle" class="section level1">
-<h1>else to wrangle</h1>
-<p>summary(Boston$crim)</p>
-</div>
-<div id="min.-1st-qu.-median-mean-3rd-qu.-max." class="section level1">
-<h1>Min. 1st Qu. Median Mean 3rd Qu. Max.</h1>
-</div>
-<div id="section" class="section level1">
-<h1>0.00632 0.08204 0.25650 3.61400 3.67700 88.98000</h1>
-<p>colnames(Boston) colnames(Boston)[1] &lt;- “crime” colnames(Boston)[2] &lt;- “zone” colnames(Boston)[3] &lt;- “industry” colnames(Boston)[4] &lt;- “charles” colnames(Boston)[5]&lt;- “noc” colnames(Boston)[6]&lt;- “dwell_rooms” colnames(Boston)[7]&lt;- “built_b1940” colnames(Boston)[8]&lt;- “distance” colnames(Boston)[9]&lt;- “highways” colnames(Boston)[10]&lt;- “property_tax” colnames(Boston)[11]&lt;- “pupil-teacher” colnames(Boston)[12]&lt;- “blacks” colnames(Boston)[13]&lt;- “lower” colnames(Boston)[14]&lt;- “median”</p>
-<p>colnames(Boston)</p>
-</div>
-<div id="our-dataset-needs-to-be-scaled-if-we-might-need-it-later.-our-basic-dataset-has-a-scaled-boston-but-it-is-in-quantiles" class="section level1">
-<h1>Our dataset needs to be scaled if we might need it later. Our basic dataset has a scaled boston but it is in quantiles</h1>
-</div>
-<div id="which-we-do-not-need-at-least-now-so-i-need-to-make-my-own." class="section level1">
-<h1>which we do not need at least now so I need to make my own.</h1>
-</div>
-<div id="i-will-however-show-how-its-done-to-avoid-confusion.-scaling-is-done-by-function-boston---meanboston-stdboston." class="section level1">
-<h1>I will however show how its done to avoid confusion. Scaling is done by function (Boston - mean(Boston))/ std(Boston).</h1>
-</div>
-<div id="the-data-is-in-matrix-class-but-the-lower-function-will-change-this." class="section level1">
-<h1>The data is in matrix class but the lower function will change this.</h1>
-<p>my_boston_scaled &lt;- scale(Boston)</p>
-<p>my_boston_scaled &lt;- as.data.frame(my_boston_scaled)</p>
-<p>summary(my_boston_scaled) summary(Boston)</p>
-<p>colnames(my_boston_scaled) colnames(my_boston_scaled)[1]&lt;- “crime” colnames(my_boston_scaled)[2]&lt;- “zone” colnames(my_boston_scaled)[3]&lt;- “industry” colnames(my_boston_scaled)[4]&lt;- “charles” colnames(my_boston_scaled)[5]&lt;- “noc” colnames(my_boston_scaled)[6]&lt;- “dwell_rooms” colnames(my_boston_scaled)[7]&lt;- “built_b1940” colnames(my_boston_scaled)[8]&lt;- “distance” colnames(my_boston_scaled)[9]&lt;- “highways” colnames(my_boston_scaled)[10]&lt;- “property_tax” colnames(my_boston_scaled)[11]&lt;- “pupil-teacher” colnames(my_boston_scaled)[12]&lt;- “blacks” colnames(my_boston_scaled)[13]&lt;- “lower” colnames(my_boston_scaled)[14]&lt;- “median”</p>
-</div>
-<div id="there-does-not-seem-to-be-more-wrangling-done-for-this-data-set-so-lets-move-on-to-the-analysis." class="section level1">
-<h1>There does not seem to be more wrangling done for this data set so let’s move on to the analysis.</h1>
-</div>
-<div id="milt-nayttaa" class="section level1">
-<h1>MILT NAYTTAA</h1>
-<p>correlation_plot &lt;- cor(Boston)</p>
-</div>
-<div id="print-the-correlation-matrix" class="section level1">
-<h1>print the correlation matrix</h1>
-<p>correlation_plot &lt;-cor(Boston) %&gt;% round(digits=2)</p>
-</div>
-<div id="visualize-the-correlation-matrix" class="section level1">
-<h1>visualize the correlation matrix</h1>
-<p>corrplot(correlation_plot, method=“pie”, type = “upper”, cl.pos = “b”, tl.pos = “d”, tl.cex = 0.6)</p>
 <p>library(“knitr”) setwd(“\\atkk/home/o/ollranta/Documents/tilastoi/Opendatasciense/IODS-final-master”) getwd()</p>
-</div>
 <div id="some-remarks-about-the-project" class="section level1">
 <h1>Some remarks about the project</h1>
 <p>Data from <a href="https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html" class="uri">https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html</a></p>
