@@ -24,11 +24,7 @@ First I was going to choose a new topic for the project but I had major problems
 
 Anyway our dataset is oldie but goldie as a dataset since we used it in chapter 4. The source for it are Harrison, D. and Rubinfeld, D.L. (1978) Hedonic prices and the demand for clean air. and J. Environ. Economics and Management 5, 81-102.Belsley D.A., Kuh, E. and Welsch, R.E. (1980) Regression Diagnostics. Identifying Influential Data and Sources of Collinearity. New York: Wiley. As you can see, the data is almost 40 years old and things may have changed quite a bit. The dataset consists of housing values in Boston which are indicated by 14 variables. Totally there are 506 observations of data. I did not have to do lots of data wrangling, since the data was allready in a pretty good form. However I changed the column names and also made a new dataset which has the scaled variables also. 
 
-My core research question is how does crime variable behave on a linear regression analysis. For example my hypothesis is that places which have high crime will also lower median house values. 
-
-I will use different variables in linear regression analysis to see how crime affect different things. 
-I will do linear regression for the crime variable which is recommended by the instructions. I will also do multiple regression analysis with low and high correlation varibales to crime. have time I will use different variables in linear regression analysis to see how crime affect different things. 
-The R does linear model y ~ x meaning y is target variable (grades) and x is the explanatory variable which is crime variable. 
+I will do linear regression for the crime variable which is recommended by the instructions. My core research question is how does crime variable behave on a linear regression analysis. For example my hypothesis is that places which have high crime will also lower median house values. I will also use some different variables in linear regression analysis to see how crime affect different things and also do multiple regression analysis with low and high correlation variables to crime variable. 
 
 So yeah let's have a look of our variables. 
 
@@ -97,10 +93,7 @@ pairs(~distance+highways+property_tax+pupil_teacher +blacks + lower + median,dat
 
 We can see how our variables vary a lot on the charts. They are not on a same scale on any amount. For example tax-rate and distance are on very different scale. Tax rate of property ranges on scale from 200 to 700 and distance on the other hand only varys from 2 to 12 on its scale. 
 
-Visually clear and interesting explorations of the variables of interest in the data, from the point of view of your research question. Include interpretations of the distributions and relationships of the variables. Use captions to draw the reader's focus on the interesting parts of your tables and graphics.
-
-Okay now I think we can move on to do the linear regression analysis. Linear regression analysis is used to find out if two (or more) variable's connection is statistically significant. This is done by visualizing the coeffecients between variables. We can interpret results from the produced chart. Also we can make predictions based on this and quantify the relationship between variables. If the line is going up, the coefficients are positive which means the variables are linearly related. If it's going down they are negative. 
-Crime variable is target (dependent) variable on our analysis since we are trying to find out which variables linearly relate with crime variable. 
+Okay now I think we can move on to do the linear regression analysis. Linear regression analysis is used to find out if two (or more) variable's connection is statistically significant. This is done by visualizing the coeffecients between variables. Coeffiency means relation between the variable and it can be both negative or positive. The R does linear model y ~ x meaning y is target variable (grades) and x is the explanatory variable which is crime variable. We can interpret results from the produced plot graphically when we use qplot function. Also we can make predictions based on the results and quantify the relationship between variables. Crime variable is target (dependent) variable on our analysis since we are trying to find out which variables linearly relate with crime variable. 
 
 
 
@@ -164,7 +157,7 @@ summary(model5)
 
 ![](bla.jpg)
 
-Highways and property-tax rates do have linear relationships with crime variable. Distance, black and median variables do not have a linear relationship with the crime variable. This can be intercepted like this: When the property tax-rate is high the crimes happen more. Maybe this could be explained that the tax rates are high because there are much disturbances on the areas maybe. On the other linearity there seems to be that when median house price is low there is more crime. This explains that our hypothesis was right.
+Highways and property-tax rates do have linear relationships with crime variable. Distance, black and median variables do not have a linear relationship with the crime variable. This can be intercepted like this: When the property tax-rate is high, the crime happens more. Maybe this could be explained by: the tax rates are high because there are much disturbances on the areas. On the other linearity there seems to be when median house price is low there is more crime. This explains that our hypothesis was right.
 
 
 
