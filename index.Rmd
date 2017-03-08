@@ -268,7 +268,7 @@ summary(my_model1)
 ```
 ![](multi1.jpg)
 
-2 × 3 grid panels which means 3 plots on 2 levels.
+2 ? 3 grid panels which means 3 plots on 2 levels.
 
 ```
 par(mfrow = c(2,2))
@@ -285,7 +285,7 @@ summary(my_model2)
 
 
 
-2 × 3 grid panels which means 3 plots on 2 levels.
+2 ? 3 grid panels which means 3 plots on 2 levels.
 ```
 par(mfrow = c(2,2))
 plot(my_model2, which = c(1,2,5))
