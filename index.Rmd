@@ -168,15 +168,15 @@ Highways and property-tax rates do have linear relationships with crime variable
 
 
 
-# Graphical model validation
+# Multiple regression analysis for both negative and positive correlations and Graphical model validation
 
-Multiple regression analysis for both negative and positive correlations. I already explained what the coefficents and p value stand for below and now we can focus on multiple R-squared value, which is 0.2801 on model1 and 0.3923 on model2. These values tells us how does our model fit to observations. The bigger the value is, our model fits better to observations.
+I already explained what the coefficents and p value stand for below and now we can focus on multiple R-squared value, which is 0.2801 on model1 and 0.3923 on model2. These values tells us how does our model fit to observations. The bigger the value is, our model fits better to observations.
 
 Then we can focus on our the plots below. Residuals mean prediction errors for our model and the plots are made for this. The first plot is calles residuals vs fitted residuals which   shows if the residuals have non-linear pattern. In our first model it does have a linear pattern which means our model works fine. The second one not so much.
 
 Second plot is called normal Q-Q plot. Normal Q-Q plot shows if the residuals are normally distributed. If the residuals are not fitted at all on the straight line they are not normally distributed. On our case that is not the question and the residuals are pretty much normally distributed.
 
-And last is residuals vs. leverage plot. We can interpret the extreme values with this plot. It tells us which points have the greatest influence on the regression. On this plot, focus is on the extreme cases and their influence to the regression analysis or the absence of this. When cases (dots) are outside of the red lide( cook's distance) the cases are influential to the regression results.
+And last is residuals vs. leverage plot. We can interpret the extreme values with this plot. It tells us which points have the greatest influence on the regression. On this plot, focus is on the extreme cases and their influence to the regression analysis or the absence of this. When cases (dots) are outside of the red lide( cook's distance) the cases are influential to the regression results. Especially we that this is the case on the model2. 
 
 
 
@@ -211,7 +211,7 @@ plot(my_model2, which = c(1,2,5))
 ```
 ![](my_model2_residuals.png)
 
-# Prediction and validation
+# Prediction 
 
 Let's make a prediction of the median house value and amount of crime. Since we made our linear model we can use it to try new values for the such as: if house median value is 10 how much is the crime and so on. 
 

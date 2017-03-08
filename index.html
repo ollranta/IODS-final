@@ -279,12 +279,12 @@ summary(model5)</code></pre>
 </div>
 <p>Highways and property-tax rates do have linear relationships with crime variable. Distance, black and median variables do not have a linear relationship with the crime variable. This can be intercepted like this: When the property tax-rate is high the crimes happen more. Maybe this could be explained that the tax rates are high because there are much disturbances on the areas maybe. On the other linearity there seems to be that when median house price is low there is more crime. This explains that our hypothesis was right.</p>
 </div>
-<div id="graphical-model-validation" class="section level1">
-<h1>Graphical model validation</h1>
-<p>Multiple regression analysis for both negative and positive correlations. I already explained what the coefficents and p value stand for below and now we can focus on multiple R-squared value, which is 0.2801 on model1 and 0.3923 on model2. These values tells us how does our model fit to observations. The bigger the value is, our model fits better to observations.</p>
+<div id="multiple-regression-analysis-for-both-negative-and-positive-correlations-and-graphical-model-validation" class="section level1">
+<h1>Multiple regression analysis for both negative and positive correlations and Graphical model validation</h1>
+<p>I already explained what the coefficents and p value stand for below and now we can focus on multiple R-squared value, which is 0.2801 on model1 and 0.3923 on model2. These values tells us how does our model fit to observations. The bigger the value is, our model fits better to observations.</p>
 <p>Then we can focus on our the plots below. Residuals mean prediction errors for our model and the plots are made for this. The first plot is calles residuals vs fitted residuals which shows if the residuals have non-linear pattern. In our first model it does have a linear pattern which means our model works fine. The second one not so much.</p>
 <p>Second plot is called normal Q-Q plot. Normal Q-Q plot shows if the residuals are normally distributed. If the residuals are not fitted at all on the straight line they are not normally distributed. On our case that is not the question and the residuals are pretty much normally distributed.</p>
-<p>And last is residuals vs. leverage plot. We can interpret the extreme values with this plot. It tells us which points have the greatest influence on the regression. On this plot, focus is on the extreme cases and their influence to the regression analysis or the absence of this. When cases (dots) are outside of the red lide( cook’s distance) the cases are influential to the regression results.</p>
+<p>And last is residuals vs. leverage plot. We can interpret the extreme values with this plot. It tells us which points have the greatest influence on the regression. On this plot, focus is on the extreme cases and their influence to the regression analysis or the absence of this. When cases (dots) are outside of the red lide( cook’s distance) the cases are influential to the regression results. Especially we that this is the case on the model2.</p>
 <pre><code>my_model1 &lt;- lm(Boston$crime ~ Boston$distance + Boston$blacks + Boston$median, data = Boston)
 
 summary(my_model1)</code></pre>
@@ -314,8 +314,8 @@ plot(my_model2, which = c(1,2,5))</code></pre>
 
 </div>
 </div>
-<div id="prediction-and-validation" class="section level1">
-<h1>Prediction and validation</h1>
+<div id="prediction" class="section level1">
+<h1>Prediction</h1>
 <p>Let’s make a prediction of the median house value and amount of crime. Since we made our linear model we can use it to try new values for the such as: if house median value is 10 how much is the crime and so on.</p>
 <pre><code>prediction &lt;- lm(crime ~ median, data = Boston)
 medians &lt;- c(&quot;507&quot; = 23,  &quot;508&quot; = 15)
