@@ -3,7 +3,6 @@ title: "Olli Rantanen, Final project, olli.a.rantanen@helsinki.fi. 1.3.2017"
 output: html_document
 code_folding: show
 ---
-ä
 
 
 ```{r, echo=FALSE}
@@ -250,8 +249,17 @@ summary(model5)
 
 There is some evidence for non-linearity in the relationship between lstat and medv jotka menee alas
 
+# Graphical model validation
 
-Multiple regression analysis for both negative and positive correlations.
+Multiple regression analysis for both negative and positive correlations. I already explained what the coefficents and p value stand for below and now we can focus on multiple R-squared value, which is 0.2801 on model1 and 0.3923 on model2. These values tells us how does our model fit to observations. The bigger the value is, our model fits better to observations.
+
+Then we can focus on our the plots below. The first plot is calles residuals vs fitted residuals which   shows if the residuals have non-linear pattern. In our first model it does have a linear pattern which means our model works fine. The second one not so much.
+
+Second plot is called normal Q-Q plot. Normal Q-Q plot shows if the residuals are normally distributed. If the residuals are not fitted at all on the straight line they are not normally distributed. On our case that is not the question and the residuals are pretty much normally distributed.
+
+And last is residuals vs. leverage plot. We can interpret the extreme values with this plot. It tells us which points have the greatest influence on the regression. On this plot, focus is on the extreme cases and their influence to the regression analysis or the absence of this. When cases (dots) are outside of the red lide( cook's distance) the cases are influential to the regression results.
+
+
 
 ```
 my_model1 <- lm(Boston$crime ~ Boston$distance + Boston$blacks + Boston$median, data = Boston)
@@ -314,26 +322,3 @@ Presentation of the results of your analysis including visualizations and summar
 Conclusions and discussion (max 2 points)
 
 An 'abstract' at the beginning of the page with a summary of your analysis (max 2 points)
-
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-```{r}
-dim(iris)
-```
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
