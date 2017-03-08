@@ -9,12 +9,12 @@ code_folding: show
 knitr::opts_chunk$set(error = TRUE)
 ```
 
+# Abstract: 
+I will focus on Boston dataset which is a built-in dataset in R-studio. The dataset consists of housing values of Boston and there are totally 14 variables and 506 observations. I will do linear regression analysis and multiple regression analysis. I will focus on 5 core variables which share the most positive/negative correlations with the crime variable. I will also show core summaries of the dataset, correlation matrix, scatter plots, residual plots and regression plots. Also there are some interpretation of the produced results. Our hypothesis was true, when median house value is lower on a neighbourhood the crime rate is higher and vice versa. This can be proved by looking our prediction model and linear regression chart.
 
-library("knitr")
-setwd("\\\\atkk/home/o/ollranta/Documents/tilastoi/Opendatasciense/IODS-final-master")
-getwd()
 
 # Some remarks about the project
+
 
 Data from <https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html>
 
@@ -63,22 +63,22 @@ lower = lower status of the population (percent).
 
 median = median value of owner-occupied homes in \$1000
 ```
-And here is the summary of the data
+And here is the summary of the data variables.
 
 ```{r, echo=F}
 library(MASS)
 summary(Boston)
 ```
 
-KORRELAATIOMATRIISI
-Let's use a correlation matrix to interpret the variables and their relationships.
+
+Let's use a correlation matrix to interpret the variables and their relationships. The pie charts are red by taking a look of the color and quantity of the wanted variables. For example crime rate seems to positively and pretty strongly correlated with highway variable. This interperation is made by looking that the pie is more than 50 % covered by blue.
 ```
 correlation_plot <-cor(Boston) %>% round(digits=2)
 corrplot(correlation_plot,  method="pie", type = "upper", cl.pos = "b", tl.pos = "d", tl.cex = 0.6)
 ```
 ![](corrplot1.png)
 
-As we can see here there are positive correlation with crime variable such as accessibility to highways and property tax rate. Negative correlation between crime variable can be seen with median value of houses, black population and distance to Boston's employment centers. 
+As we can see here there are also positive correlation with crime variable and property tax rate. Negative correlation between crime variable can be seen with median value of houses, black population and distance to Boston's employment centers. 
 
 Then we can draw some scatterplots of the scaled variables. The scatterplot shows how these variables have distributed. 
 ```
@@ -92,18 +92,21 @@ pairs(~distance+highways+property_tax+pupil_teacher +blacks + lower + median,dat
 ```
 ![](scatter2.png)
 
-TAHAN LISAA TEKSTIa
+We can see how our variables vary a lot on the charts. They are not on a same scale on any amount. For example tax-rate and distance are on very different scale. Tax rate of property ranges on scale from 200 to 700 and distance on the other hand only varys from 2 to 12 on its scale. 
+
 Visually clear and interesting explorations of the variables of interest in the data, from the point of view of your research question. Include interpretations of the distributions and relationships of the variables. Use captions to draw the reader's focus on the interesting parts of your tables and graphics.
 
-Okay now I think we can move on to do the linear regression analysis. Linear regression analysis is used to find out if two (or more) variable's connection is statistically significant. This is done by visualizing the coeffecients between variables. We can interpret results from the produced chart. If the line is going up, the coefficients are positive which means the variables are linearly related. If it's going down they are negative. 
-Crime variable is target (dependent) variable on our analysis since we are trying to find out which variables linearly relate with crime variable. I use logaritmic scale for the crime variable since there are so many low crime zones which will affect the graph some variables which vary alot which makes it easier for reading.
+Okay now I think we can move on to do the linear regression analysis. Linear regression analysis is used to find out if two (or more) variable's connection is statistically significant. This is done by visualizing the coeffecients between variables. We can interpret results from the produced chart. Also we can make predictions based on this and quantify the relationship between variables. If the line is going up, the coefficients are positive which means the variables are linearly related. If it's going down they are negative. 
+Crime variable is target (dependent) variable on our analysis since we are trying to find out which variables linearly relate with crime variable. 
+
+
 
 ```
 lm(formula = crime ~ ., data = Boston)
 ```
 ![](coeffi.jpg)
 
-Okay so now we can look the linear models. I picked the explanatory variables which have high negative or positive correlation with the crime variable. So I'll use "highways", "property_tax", "median", "blacks", "distance". The grapghs look pretty funky but that is just because there much more "non-crime" neighbourhood which make it look like that. Anyhow the linear models are right. The following models can described like this: If there line on the graph goes down there is evidence for non-linearity in the relationship between the variables. If it goes up, it means there is linearity between the relationship of the variables. The coefficent tables show us how much does the explanatory variable explain the variation of crime. For example distance is estimated to effect crime variable by -1.5. The p-values are so low because there are so many observations of data. 
+Okay so now we can look the linear models. I picked the explanatory variables which have high negative or positive correlation with the crime variable. So I'll use "highways", "property_tax", "median", "blacks", "distance". The graphs look pretty funky but that is just because there much more "non-crime" neighbourhood which make it look like that. Anyhow the linear models are right. The following models can described like this: If there line on the graph goes down there is evidence for non-linearity in the relationship between the variables. If it goes up, it means there is evidence for linearity between the relationship of the variables. The coefficent tables show us how much does the explanatory variable explain the variation of crime. For example distance is estimated to effect crime variable by -1.5. The p-values are so low because there are so many observations of data. 
 
 ```
 qplot((Boston$crime), (Boston$distance), data = Boston) + geom_smooth(method = "lm")
@@ -158,16 +161,15 @@ summary(model5)
 
 ![](bla.jpg)
 
+Highways and property-tax rates do have linear relationships with crime variable. Distance, black and median variables do not have a linear relationship with the crime variable. This can be intercepted like this: When the property tax-rate is high the crimes happen more. Maybe this could be explained that the tax rates are high because there are much disturbances on the areas maybe. On the other linearity there seems to be that when median house price is low there is more crime. This explains that our hypothesis was right.
 
 
-
-There is some evidence for non-linearity in the relationship between lstat and medv jotka menee alas
 
 # Graphical model validation
 
 Multiple regression analysis for both negative and positive correlations. I already explained what the coefficents and p value stand for below and now we can focus on multiple R-squared value, which is 0.2801 on model1 and 0.3923 on model2. These values tells us how does our model fit to observations. The bigger the value is, our model fits better to observations.
 
-Then we can focus on our the plots below. The first plot is calles residuals vs fitted residuals which   shows if the residuals have non-linear pattern. In our first model it does have a linear pattern which means our model works fine. The second one not so much.
+Then we can focus on our the plots below. Residuals mean prediction errors for our model and the plots are made for this. The first plot is calles residuals vs fitted residuals which   shows if the residuals have non-linear pattern. In our first model it does have a linear pattern which means our model works fine. The second one not so much.
 
 Second plot is called normal Q-Q plot. Normal Q-Q plot shows if the residuals are normally distributed. If the residuals are not fitted at all on the straight line they are not normally distributed. On our case that is not the question and the residuals are pretty much normally distributed.
 
@@ -206,7 +208,22 @@ plot(my_model2, which = c(1,2,5))
 ```
 ![](my_model2_residuals.png)
 
+# Prediction
 
+Let's make a prediction of the median house value and amount of crime. Since we made our linear model we can use it to try new values for the such as: if house median value is 10 how much is the crime and so on. 
+
+```
+prediction <- lm(crime ~ median, data = Boston)
+medians <- c("507" = 23,  "508" = 15)
+
+new_data <- data.frame(median = medians)
+predict(prediction, newdata  = new_data)
+   507      508 
+3.443858 6.349137
+```
+Based on the prediction our new observations number 507 would have per capita crime rate of 3.44 if its median household value is 23 000 dollars and the observation number 508 would have 6.34 crime rate per capita with median house value being 15 000 dollars. This shows how the prediction works.
+
+TULKINTA
 
 Application for Lm
 Predictions and forecasting and quantifyig the relationship between y and x
@@ -215,6 +232,9 @@ Best model is found by minimizing the prediction errors that the model would mak
 residuals mean prediction errors
 Model is found by minimizing the sum of squared residuals
 
+
+# Conclusions and discussion
+I could have maybe scale the crime variable on a different way but it showed the right things so maybe that was not necessary. I did not find anything spectacular with my analysis but my hypothesis about the median house value and the amount of crime is right. Maybe this is a non-brainer but at least now I have a linear graph showing the linearity. 
 
 
 
